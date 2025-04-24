@@ -1,11 +1,39 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>QQ黑历史图卡生成器</title>
-  </head>
-  <body>
-    <h1>欢迎来到 QQ 黑历史图卡生成器</h1>
-    <p>前端上线成功！后端接口请访问 <a href="https://getqzonehistory-cloud-1.onrender.com/api/fetch_real" target="_blank">点击测试接口</a></p>
-  </body>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>QQ黑历史图卡生成器</title>
+</head>
+<body>
+  <h1>欢迎来到 QQ 黑历史图卡生成器</h1>
+  <p>前端上线成功！后端接口请访问 <a href="https://getqzonehistory-cloud-1.onrender.com/api/fetch_real" target="_blank">点击测试接口</a></p>
+
+  <h2>🔐 粘贴你的QQ空间Cookie</h2>
+  <textarea id="cookie" rows="4" cols="60" placeholder="在这里粘贴你的cookie..."></textarea><br><br>
+  <button onclick="submitCookie()">提交Cookie抓取数据</button>
+
+  <h2>📋 返回结果：</h2>
+  <pre id="result">暂无数据</pre>
+
+  <script>
+    async function submitCookie() {
+      const cookie = document.getElementById("cookie").value;
+      if (!cookie) {
+        alert("请输入Cookie！");
+        return;
+      }
+
+      const response = await fetch("https://getqzonehistory-cloud-1.onrender.com/api/fetch_real", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ cookie })
+      });
+
+      const data = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
 </html>
