@@ -17,7 +17,7 @@
 
   <script>
     async function submitCookie() {
-      const cookie = document.getElementById("cookie").value;
+      const cookie = document.getElementById("cookie").value.trim().replace(/\n/g, "");
       if (!cookie) {
         alert("请输入Cookie！");
         return;
